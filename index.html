@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vid2gif</title>
+</head>
+<body>
+<h1>vid2gif</h1>
+<div id="instruction-div">
+  Please select a video file.
+</div>
+<div id="input-div">
+  <input type="file" accept="video/*" id="video-file-input"/>
+</div>
+<div id="video-player-div">
+  <video controls autoplay width="640" height="480" id="video-player">
+    Video tag is not supported in this browser.
+  </video>
+</div>
+</body>
+</html>
+<script>
+  const fileInput = document.getElementById("video-file-input");
+  const videoPlayer = document.getElementById("video-player");
+
+  fileInput.onchange = () => {
+    const videoFile = fileInput.files[0];
+    const videoTypeSupported = document.querySelector("video").canPlayType(videoFile.type);
+    if (videoTypeSupported === "") {
+      alert("Unsupported video type.");
+      return;
+    }
+    videoPlayer.src = URL.createObjectURL(videoFile);
+  }
+</script>
