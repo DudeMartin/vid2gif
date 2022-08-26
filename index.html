@@ -25,9 +25,14 @@
 
   fileInput.onchange = () => {
     const videoFile = fileInput.files[0];
-    const videoTypeSupported = document.querySelector("video").canPlayType(videoFile.type);
+    const videoType = videoFile.type;
+    if (videoType === "") {
+      alert("The file you selected is not supported.");
+      return;
+    }
+    const videoTypeSupported = document.querySelector("video").canPlayType(videoType);
     if (videoTypeSupported === "") {
-      alert("Unsupported video type.");
+      alert(`The file type "${videoType}" cannot be played as a video.`);
       return;
     }
     videoPlayer.src = URL.createObjectURL(videoFile);
