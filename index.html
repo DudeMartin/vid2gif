@@ -13,15 +13,21 @@
   <input type="file" accept="video/*" id="video-file-input"/>
 </div>
 <div id="video-player-div">
-  <video controls autoplay width="640" height="480" id="video-player">
+  <video controls autoplay muted width="640" height="480" id="video-player">
     Video tag is not supported in this browser.
   </video>
+</div>
+<div id="playback-div">
+  <button type="button" id="skip-frame-button">Skip Frame</button>
+  <label for="skip-time-input">Skip Time (ms)</label>
+  <input type="text" value="1000" id="skip-time-input">
 </div>
 </body>
 </html>
 <script>
   const fileInput = document.getElementById("video-file-input");
   const videoPlayer = document.getElementById("video-player");
+  const skipFrameButton = document.getElementById("skip-frame-button");
 
   fileInput.onchange = () => {
     const videoFile = fileInput.files[0];
@@ -36,5 +42,18 @@
       return;
     }
     videoPlayer.src = URL.createObjectURL(videoFile);
+  }
+
+  skipFrameButton.onclick = () => {
+    if (videoPlayer.src === "") {
+      return;
+    }
+    const skipTimeInput = document.getElementById("skip-time-input");
+    if (skipTimeInput.value === "") {
+      skipTimeInput.value = "1000";
+      videoPlayer.currentTime += 1;
+    } else {
+      videoPlayer.currentTime += skipTimeInput.value / 1000;
+    }
   }
 </script>
