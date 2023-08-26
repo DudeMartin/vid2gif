@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>vid2gif</title>
   <script type="module" src="js/load_video.mjs"></script>
   <link rel="stylesheet" href="css/styles.css">
@@ -15,8 +16,8 @@
     <span id="error-message"></span>
   </div>
 </div>
-<div id="video-area">
-  <video controls autoplay muted width="640" height="480" id="video-player" hidden>
+<div id="video-container" hidden>
+  <video muted id="video-player">
     Video tag is not supported in this browser.
   </video>
 </div>

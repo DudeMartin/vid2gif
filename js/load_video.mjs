@@ -37,13 +37,14 @@ function handleSelectedVideos(videoFiles) {
 }
 
 function showVideoSelectError(message) {
-  videoPlayer.setAttribute("hidden", "");
   document.getElementById("error-message").textContent = message;
   document.getElementById("error-container").removeAttribute("hidden");
+  document.getElementById("video-container").setAttribute("hidden", "");
 }
 
 function openVideo(videoFile) {
-  videoPlayer.removeAttribute("hidden");
   document.getElementById("error-container").setAttribute("hidden", "");
+  document.getElementById("video-container").removeAttribute("hidden");
+  videoSelectArea.setAttribute("data-state", "shrink");
   videoPlayer.src = URL.createObjectURL(videoFile);
 }
