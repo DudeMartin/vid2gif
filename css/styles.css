@@ -1,0 +1,27 @@
+#video-select-area {
+  align-items: center;
+  background: lightgray;
+  border: 1px dashed black;
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  justify-content: center;
+  width: 50vw;
+}
+
+#video-select-area:hover, .video-select-hover {
+  background: darkgray;
+}
+
+#video-select-area > span {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+#error-container {
+  padding: 2ch;
+}
+
+#error-message {
+  color: red;
+}
