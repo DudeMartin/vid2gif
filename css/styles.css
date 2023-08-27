@@ -51,18 +51,28 @@
 }
 
 #video-controls {
+  --controls-button-size: 2rem;
   background: rgba(141, 136, 136, 0.5);
   border: 1px solid;
   border-radius: 1ch;
-  bottom: 3rem;
+  bottom: calc(var(--controls-button-size) + 1rem);
   display: flex;
   justify-content: space-evenly;
-  min-width: 50%;
-  padding: 1ch;
+  min-width: 35%;
   position: relative;
   width: fit-content;
 }
 
+#video-controls button {
+  aspect-ratio: 1;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  border: none;
+  height: var(--controls-button-size);
+}
+
 #video-progress {
-  width: 75%;
+  width: 85%;
 }

@@ -1,0 +1,15 @@
+#play-button[data-state=play] {
+  background-image: url(/icons/play.svg);
+}
+
+#play-button[data-state=pause] {
+  background-image: url(/icons/pause.svg);
+}
+
+#mute-button[data-state=mute] {
+  background-image: url(/icons/unmuted.svg);
+}
+
+#mute-button[data-state=unmute] {
+  background-image: url(/icons/muted.svg);
+}
