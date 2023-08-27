@@ -2,94 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>vid2gif</title>
-  <script type="text/javascript" src="lib/Animated_GIF.min.js"></script>
+  <script type="module" src="js/load_video.mjs"></script>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 <h1>vid2gif</h1>
-<div id="instruction-div">
-  Please select a video file.
+<input type="file" accept="video/*" id="video-file-input" hidden/>
+<div id="video-select-area">
+  <span>Click to select or drop a file</span>
+  <div id="error-container" hidden>
+    <span id="error-message"></span>
+  </div>
 </div>
-<div id="input-div">
-  <input type="file" accept="video/*" id="video-file-input"/>
-</div>
-<div id="video-player-div">
-  <video controls autoplay muted width="640" height="480" id="video-player">
+<div id="video-container" hidden>
+  <video muted id="video-player">
     Video tag is not supported in this browser.
   </video>
 </div>
-<div id="playback-div">
-  <button type="button" id="skip-frame-button">Skip Frame</button>
-  <label for="skip-time-input">Skip Time (ms)</label>
-  <input type="number" value="1000" min="1" id="skip-time-input">
-</div>
-<div id="gif-div">
-  <button type="button" id="add-frame-button">Add Frame</button>
-  <label for="frame-delay-time-input">Frame Time (ms)</label>
-  <input type="number" value="500" min="100" max="3000" id="frame-delay-time-input">
-  <button type="button" id="reset-frames-button">Reset Frames</button>
-  <button type="button" id="generate-gif-button">Generate GIF</button>
-</div>
-<div id="output-div"></div>
 </body>
 </html>
-<script>
-  const fileInput = document.getElementById("video-file-input");
-  const videoPlayer = document.getElementById("video-player");
-  const skipFrameButton = document.getElementById("skip-frame-button");
-  const addFrameButton = document.getElementById("add-frame-button");
-  const resetFramesButton = document.getElementById("reset-frames-button");
-  const generateGifButton = document.getElementById("generate-gif-button");
-  let animatedGif;
-
-  function initializeGif(width, height) {
-    animatedGif?.destroy();
-    animatedGif = new Animated_GIF();
-    animatedGif.setSize(width, height);
-  }
-
-  fileInput.onchange = () => {
-    const videoFile = fileInput.files[0];
-    const videoType = videoFile.type;
-    if (videoType === "") {
-      alert("The file you selected is not supported.");
-      return;
-    }
-    const videoTypeSupported = videoPlayer.canPlayType(videoType);
-    if (videoTypeSupported === "") {
-      alert(`The file type "${videoType}" cannot be played as a video.`);
-      return;
-    }
-    videoPlayer.src = URL.createObjectURL(videoFile);
-    initializeGif(videoPlayer.width, videoPlayer.height);
-  }
-
-  skipFrameButton.onclick = () => {
-    if (videoPlayer.src === "") {
-      return;
-    }
-    const skipTimeInput = document.getElementById("skip-time-input");
-    if (skipTimeInput.value === "") {
-      skipTimeInput.value = "1000";
-      videoPlayer.currentTime += 1;
-    } else {
-      videoPlayer.currentTime += skipTimeInput.value / 1000;
-    }
-  }
-
-  addFrameButton.onclick = () => {
-    const frameDelayInput = document.getElementById("frame-delay-time-input");
-    animatedGif?.addFrame(videoPlayer, { delay: frameDelayInput.value });
-  }
-  
-  resetFramesButton.onclick = () => initializeGif(videoPlayer.width, videoPlayer.height);
-
-  generateGifButton.onclick = () => {
-    animatedGif?.getBase64GIF((image) => {
-      const outputDiv = document.getElementById("output-div");
-      const animatedImage = document.createElement("img");
-      animatedImage.src = image;
-      outputDiv.innerHTML = animatedImage.outerHTML;
-    });
-  }
-</script>
