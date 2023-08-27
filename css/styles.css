@@ -1,3 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@1,100&display=swap");
+
+html {
+  font-family: "Public Sans", sans-serif;
+}
+
 .centered {
   margin-left: auto;
   margin-right: auto;
@@ -5,19 +11,20 @@
 
 #video-select-area {
   align-items: center;
-  background: rgb(225, 225, 225);
-  border-style: dashed;
-  border-width: 2px;
+  background: #eee;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   height: 25vh;
   justify-content: center;
+  padding: 1ch;
+  text-align: center;
   width: 80%;
 }
 
 #video-select-area:hover,
 #video-select-area.video-select-hover {
-  background: rgb(200, 200, 200);
+  background: #ddd;
 }
 
 #video-select-area[data-state=shrink] {
@@ -26,7 +33,6 @@
 
 #video-select-area > span {
   font-size: 1.5rem;
-  font-weight: bold;
 }
 
 #error-container {
@@ -50,9 +56,28 @@
   width: 75vw;
 }
 
+@media only screen and (max-width: 600px) {
+  h1 {
+    margin: 1ch;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  #video-container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  #video-player {
+    width: 100vw;
+  }
+}
+
 #video-controls {
   --controls-button-size: 2.5rem;
-  background: rgba(141, 136, 136, 0.5);
+  background: #777777a0;
   border: 1px solid;
   border-radius: 1ch;
   bottom: calc(var(--controls-button-size) + 1rem);
@@ -82,7 +107,7 @@
 
 #progress-container::before,
 #progress-container::after {
-  --tooltip-color: grey;
+  --tooltip-color: black;
   position: absolute;
   transform: translateX(calc(var(--tooltip-x) - 50%)) translateY(var(--tooltip-y, 0));
 }
@@ -99,7 +124,7 @@
 #progress-container:hover::after {
   border: 10px solid transparent;
   border-top-color: var(--tooltip-color);
-  content: '';
+  content: "";
 }
 
 #video-progress {
