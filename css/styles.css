@@ -73,6 +73,23 @@
   height: var(--controls-button-size);
 }
 
-#video-progress {
+#progress-container {
+  --tooltip-x: 0;
+  display: flex;
+  position: relative;
   width: 85%;
+}
+
+#progress-container:hover::before {
+  background: black;
+  color: white;
+  content: attr(data-tooltip);
+  font-size: 1.125rem;
+  padding: 0.25rem;
+  position: absolute;
+  transform: translateX(calc(var(--tooltip-x) - 50%)) translateY(-75%);
+}
+
+#video-progress {
+  width: 100%;
 }
