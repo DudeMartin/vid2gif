@@ -3,7 +3,18 @@ const progressBar = document.getElementById("video-progress");
 const playButton = document.getElementById("play-button");
 const muteButton = document.getElementById("mute-button");
 
-videoPlayer.ontimeupdate = () => progressBar.value = videoPlayer.currentTime / videoPlayer.duration;
+videoPlayer.onloadstart = () => {
+  progressBar.value = 0;
+  playButton.setAttribute("data-state", "play");
+};
+
+videoPlayer.ontimeupdate = () => {
+  if (videoPlayer.currentTime && videoPlayer.duration) {
+    progressBar.value = videoPlayer.currentTime / videoPlayer.duration;
+  }
+};
+
+videoPlayer.onended = () => playButton.setAttribute("data-state", "play");
 
 progressBar.onmousemove = event => {
   const progressContainer = document.getElementById("progress-container");
