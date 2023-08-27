@@ -51,7 +51,7 @@
 }
 
 #video-controls {
-  --controls-button-size: 2rem;
+  --controls-button-size: 2.5rem;
   background: rgba(141, 136, 136, 0.5);
   border: 1px solid;
   border-radius: 1ch;
@@ -80,14 +80,26 @@
   width: 85%;
 }
 
+#progress-container::before,
+#progress-container::after {
+  --tooltip-color: grey;
+  position: absolute;
+  transform: translateX(calc(var(--tooltip-x) - 50%)) translateY(var(--tooltip-y, 0));
+}
+
 #progress-container:hover::before {
-  background: black;
+  --tooltip-y: -100%;
+  background: var(--tooltip-color);
   color: white;
   content: attr(data-tooltip);
-  font-size: 1.125rem;
+  font-size: 1.2em;
   padding: 0.25rem;
-  position: absolute;
-  transform: translateX(calc(var(--tooltip-x) - 50%)) translateY(-75%);
+}
+
+#progress-container:hover::after {
+  border: 10px solid transparent;
+  border-top-color: var(--tooltip-color);
+  content: '';
 }
 
 #video-progress {
