@@ -19,7 +19,7 @@ document.ondrop = event => {
 
 videoFileInput.onchange = () => handleSelectedVideos(videoFileInput.files);
 
-videoSelectArea.onclick = () => document.getElementById("video-file-input").click();
+videoSelectArea.onclick = () => videoFileInput.click();
 
 function handleSelectedVideos(videoFiles) {
   if (videoFiles.length === 0) {
@@ -39,12 +39,12 @@ function handleSelectedVideos(videoFiles) {
 function showVideoSelectError(message) {
   document.getElementById("error-message").textContent = message;
   document.getElementById("error-container").removeAttribute("hidden");
-  document.getElementById("video-container").setAttribute("hidden", "");
+  document.getElementById("video-container").setAttribute("data-state", "hide");
 }
 
 function openVideo(videoFile) {
   document.getElementById("error-container").setAttribute("hidden", "");
-  document.getElementById("video-container").removeAttribute("hidden");
+  document.getElementById("video-container").setAttribute("data-state", "show");
   videoSelectArea.setAttribute("data-state", "shrink");
   videoPlayer.src = URL.createObjectURL(videoFile);
 }

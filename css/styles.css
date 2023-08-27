@@ -1,5 +1,6 @@
-video {
-  width: 75vw;
+.centered {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #video-select-area {
@@ -11,8 +12,6 @@ video {
   flex-direction: column;
   height: 25vh;
   justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
   width: 80%;
 }
 
@@ -41,4 +40,29 @@ video {
 #video-container {
   display: inline-block;
   padding: 1vh;
+}
+
+#video-container[data-state=hide] {
+  display: none;
+}
+
+#video-player {
+  width: 75vw;
+}
+
+#video-controls {
+  background: rgba(141, 136, 136, 0.5);
+  border: 1px solid;
+  border-radius: 1ch;
+  bottom: 3rem;
+  display: flex;
+  justify-content: space-evenly;
+  min-width: 50%;
+  padding: 1ch;
+  position: relative;
+  width: fit-content;
+}
+
+#video-progress {
+  width: 75%;
 }
