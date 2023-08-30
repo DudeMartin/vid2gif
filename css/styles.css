@@ -54,17 +54,16 @@ html {
 }
 
 #video-controls {
-  --controls-button-size: 2.5rem;
   align-items: center;
   background: #777777a0;
   border: 1px solid;
   border-radius: 5px;
-  bottom: calc(var(--controls-button-size) + 1rem);
   display: flex;
   gap: 10px;
   justify-content: center;
   min-width: 75%;
   position: relative;
+  transform: translateY(calc(-100% - 1rem));
   width: fit-content;
 }
 
@@ -75,7 +74,7 @@ html {
   background-repeat: no-repeat;
   background-size: 100%;
   border: none;
-  height: var(--controls-button-size);
+  height: 2.5rem;
 }
 
 #progress-container {
@@ -135,8 +134,8 @@ html {
   #video-controls {
     border: 0;
     border-radius: 0;
-    bottom: var(--controls-button-size);
     line-height: normal;
+    transform: translateY(-100%);
     width: 100vw;
   }
 
