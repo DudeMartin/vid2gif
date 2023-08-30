@@ -40,6 +40,7 @@ function showVideoSelectError(message) {
   document.getElementById("error-message").textContent = message;
   document.getElementById("error-container").removeAttribute("hidden");
   document.getElementById("video-container").setAttribute("data-state", "hide");
+  videoSelectArea.removeAttribute("data-state");
 }
 
 function openVideo(videoFile) {
