@@ -6,7 +6,6 @@ const muteButton = document.getElementById("mute-button");
 videoPlayer.onloadstart = () => {
   progressBar.value = 0;
   playButton.setAttribute("data-state", "play");
-  muteButton.setAttribute("data-state", videoPlayer.volume === 0 || videoPlayer.muted ? "unmute" : "mute");
 };
 
 videoPlayer.ontimeupdate = () => {
@@ -36,11 +35,23 @@ progressBar.onmousemove = event => {
   const fraction = relativeX / progressBarBounds.width;
   progressContainer.setAttribute("data-tooltip", formatTime(fraction * videoPlayer.duration));
   progressContainer.style.setProperty("--tooltip-x", `${relativeX.toString()}px`);
+  if (isLeftMouseButtonPressed(event)) {
+    videoPlayer.currentTime = fraction * videoPlayer.duration;
+  }
 };
 
-progressBar.onmouseup = event => {
+progressBar.onmousedown = event => {
+  if (!isLeftMouseButtonPressed(event)) {
+    return;
+  }
   const progressBarBounds = progressBar.getBoundingClientRect();
   const fraction = (event.clientX - progressBarBounds.left) / progressBarBounds.width;
+  videoPlayer.currentTime = fraction * videoPlayer.duration;
+};
+
+progressBar.ontouchstart = event => {
+  const progressBarBounds = progressBar.getBoundingClientRect();
+  const fraction = (event.targetTouches[0].clientX - progressBarBounds.left) / progressBarBounds.width;
   videoPlayer.currentTime = fraction * videoPlayer.duration;
 };
 
@@ -64,4 +75,8 @@ function formatTime(seconds) {
   }
   result += Math.trunc(seconds % 60).toString().padStart(2, "0");
   return result;
+}
+
+function isLeftMouseButtonPressed(mouseEvent) {
+  return (mouseEvent.buttons & 1) === 1;
 }
