@@ -2,6 +2,8 @@
 
 html {
   font-family: "Public Sans", sans-serif;
+  font-style: italic;
+  font-weight: 100;
 }
 
 .centered {
