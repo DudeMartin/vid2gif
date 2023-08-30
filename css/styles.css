@@ -43,6 +43,7 @@ html {
 
 #video-container {
   display: inline-block;
+  position: relative;
 }
 
 #video-container[data-state=hide] {
@@ -54,6 +55,7 @@ html {
 }
 
 #video-controls {
+  --video-controls-width: 75%;
   align-items: center;
   background: #777777a0;
   border: 1px solid;
@@ -61,10 +63,10 @@ html {
   display: flex;
   gap: 10px;
   justify-content: center;
-  min-width: 75%;
-  position: relative;
+  left: calc((100% - var(--video-controls-width)) / 2);
+  position: absolute;
   transform: translateY(calc(-100% - 1rem));
-  width: fit-content;
+  width: var(--video-controls-width);
 }
 
 #video-controls button {
@@ -134,6 +136,7 @@ html {
   #video-controls {
     border: 0;
     border-radius: 0;
+    left: 0;
     line-height: normal;
     transform: translateY(-100%);
     width: 100vw;
