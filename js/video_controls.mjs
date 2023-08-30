@@ -1,5 +1,6 @@
 const videoPlayer = document.getElementById("video-player");
 const progressBar = document.getElementById("video-progress");
+const timeDisplay = document.getElementById("video-time-display");
 const playButton = document.getElementById("play-button");
 const muteButton = document.getElementById("mute-button");
 
@@ -8,10 +9,14 @@ videoPlayer.onloadstart = () => {
   playButton.setAttribute("data-state", "play");
 };
 
+videoPlayer.onloadedmetadata = () => timeDisplay.textContent = `${formatTime(0)}/${formatTime(videoPlayer.duration)}`;
+
 videoPlayer.ontimeupdate = () => {
-  if (videoPlayer.currentTime && videoPlayer.duration) {
-    progressBar.value = videoPlayer.currentTime / videoPlayer.duration;
+  if (!videoPlayer.currentTime || !videoPlayer.duration) {
+    return;
   }
+  progressBar.value = videoPlayer.currentTime / videoPlayer.duration;
+  timeDisplay.textContent = `${formatTime(videoPlayer.currentTime)}/${formatTime(videoPlayer.duration)}`;
 };
 
 videoPlayer.onplay = () => playButton.setAttribute("data-state", "pause");

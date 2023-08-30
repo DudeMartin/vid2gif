@@ -69,12 +69,13 @@ html {
 
 #video-controls {
   --controls-button-size: 2.5rem;
+  align-items: center;
   background: #777777a0;
   border: 1px solid;
   border-radius: 5px;
   bottom: calc(var(--controls-button-size) + 1rem);
   display: flex;
-  gap: 1%;
+  gap: 10px;
   justify-content: center;
   min-width: 75%;
   position: relative;
@@ -93,22 +94,22 @@ html {
 
 #progress-container {
   --tooltip-x: 0;
-  align-items: center;
   display: flex;
+  flex-direction: column;
   position: relative;
   width: 100%;
 }
 
 #progress-container::before,
 #progress-container::after {
+  --tooltip-arrow-size: 10px;
   --tooltip-color: black;
-  align-self: flex-start;
   position: absolute;
   transform: translateX(calc(var(--tooltip-x) - 50%)) translateY(var(--tooltip-y, 0));
 }
 
 #progress-container:hover::before {
-  --tooltip-y: -100%;
+  --tooltip-y: calc(-100% - var(--tooltip-arrow-size));
   background: var(--tooltip-color);
   color: white;
   content: attr(data-tooltip);
@@ -117,7 +118,8 @@ html {
 }
 
 #progress-container:hover::after {
-  border: 10px solid transparent;
+  --tooltip-y: calc(-1 * var(--tooltip-arrow-size));
+  border: var(--tooltip-arrow-size) solid transparent;
   border-top-color: var(--tooltip-color);
   content: "";
 }
@@ -125,4 +127,8 @@ html {
 #video-progress {
   cursor: pointer;
   width: 100%;
+}
+
+#video-time-display {
+  font-size: 1.1rem;
 }
