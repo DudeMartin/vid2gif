@@ -83,7 +83,7 @@ html {
   bottom: calc(var(--controls-button-size) + 1rem);
   display: flex;
   justify-content: space-evenly;
-  min-width: 35%;
+  min-width: 75%;
   position: relative;
   width: fit-content;
 }
@@ -130,5 +130,6 @@ html {
 }
 
 #video-progress {
+  cursor: pointer;
   width: 100%;
 }

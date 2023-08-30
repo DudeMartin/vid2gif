@@ -6,6 +6,7 @@ const muteButton = document.getElementById("mute-button");
 videoPlayer.onloadstart = () => {
   progressBar.value = 0;
   playButton.setAttribute("data-state", "play");
+  muteButton.setAttribute("data-state", videoPlayer.volume === 0 || videoPlayer.muted ? "unmute" : "mute");
 };
 
 videoPlayer.ontimeupdate = () => {
@@ -14,7 +15,19 @@ videoPlayer.ontimeupdate = () => {
   }
 };
 
+videoPlayer.onplay = () => playButton.setAttribute("data-state", "pause");
+
+videoPlayer.onpause = () => playButton.setAttribute("data-state", "play");
+
 videoPlayer.onended = () => playButton.setAttribute("data-state", "play");
+
+videoPlayer.onvolumechange = () => {
+  if (videoPlayer.volume === 0 || videoPlayer.muted) {
+    muteButton.setAttribute("data-state", "unmute");
+  } else if (muteButton.getAttribute("data-state") === "unmute") {
+    muteButton.setAttribute("data-state", "mute");
+  }
+};
 
 progressBar.onmousemove = event => {
   const progressContainer = document.getElementById("progress-container");
@@ -32,12 +45,14 @@ progressBar.onmouseup = event => {
 };
 
 playButton.onmouseup = () => {
-  toggleState(playButton, "play", "pause", () => videoPlayer.play(), () => videoPlayer.pause());
+  if (playButton.getAttribute("data-state") === "play") {
+    videoPlayer.play();
+  } else {
+    videoPlayer.pause();
+  }
 };
 
-muteButton.onmouseup = () => {
-  toggleState(muteButton, "mute", "unmute", () => videoPlayer.muted = true, () => videoPlayer.muted = false);
-};
+muteButton.onmouseup = () => videoPlayer.muted = muteButton.getAttribute("data-state") === "mute";
 
 function formatTime(seconds) {
   let result = "";
@@ -49,14 +64,4 @@ function formatTime(seconds) {
   }
   result += Math.trunc(seconds % 60).toString().padStart(2, "0");
   return result;
-}
-
-function toggleState(element, stateOne, stateTwo, stateOneCallback = () => {}, stateTwoCallback = () => {}) {
-  if (element.getAttribute("data-state") === stateOne) {
-    stateOneCallback();
-    element.setAttribute("data-state", stateTwo);
-  } else {
-    stateTwoCallback();
-    element.setAttribute("data-state", stateOne);
-  }
 }
