@@ -48,11 +48,15 @@ html {
 }
 
 #video-select-area[data-state=shrink] {
-  height: 10vh;
+  height: 5vh;
 }
 
 #video-select-area > span {
   font-size: 1.5rem;
+}
+
+#video-select-area[data-state=shrink] > span {
+  font-size: 1.2rem;
 }
 
 #error-message {
@@ -74,6 +78,7 @@ html {
 }
 
 #video-player {
+  max-height: 70vh;
   width: 95vmin;
 }
 
