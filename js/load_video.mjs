@@ -1,3 +1,5 @@
+import { preventDefault } from "./event_utilities.mjs";
+
 const videoFileInput = document.getElementById("video-file-input");
 const videoSelectArea = document.getElementById("video-select-area");
 const videoPlayer = document.getElementById("video-player");
@@ -6,16 +8,12 @@ document.ondragenter = () => videoSelectArea.classList.add("video-select-hover")
 
 document.ondragleave = () => videoSelectArea.classList.remove("video-select-hover");
 
-document.ondragover = event => {
-  event.preventDefault();
-  videoSelectArea.classList.add("video-select-hover");
-};
+document.ondragover = preventDefault(() => videoSelectArea.classList.add("video-select-hover"));
 
-document.ondrop = event => {
-  event.preventDefault();
+document.ondrop = preventDefault(event => {
   videoSelectArea.classList.remove("video-select-hover");
   handleSelectedVideos(event.dataTransfer.files);
-};
+});
 
 videoFileInput.onchange = () => handleSelectedVideos(videoFileInput.files);
 
@@ -39,13 +37,13 @@ function handleSelectedVideos(videoFiles) {
 function showVideoSelectError(message) {
   document.getElementById("error-message").textContent = message;
   document.getElementById("error-container").removeAttribute("hidden");
-  document.getElementById("video-container").setAttribute("data-state", "hide");
+  document.getElementById("main-container").setAttribute("data-state", "hide");
   videoSelectArea.removeAttribute("data-state");
 }
 
 function openVideo(videoFile) {
   document.getElementById("error-container").setAttribute("hidden", "");
-  document.getElementById("video-container").setAttribute("data-state", "show");
+  document.getElementById("main-container").setAttribute("data-state", "show");
   videoSelectArea.setAttribute("data-state", "shrink");
   videoPlayer.src = URL.createObjectURL(videoFile);
 }

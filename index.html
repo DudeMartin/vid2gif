@@ -6,6 +6,7 @@
   <title>vid2gif</title>
   <script type="module" src="js/load_video.mjs"></script>
   <script type="module" src="js/video_controls.mjs"></script>
+  <script type="module" src="js/action_panel.mjs"></script>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/icon_styles.css">
 </head>
@@ -18,17 +19,37 @@
     <span id="error-message"></span>
   </div>
 </div>
-<div id="video-container" data-state="hide">
-  <video id="video-player" playsinline muted>
-    Video tag is not supported in this browser.
-  </video>
-  <div id="video-controls" class="centered">
-    <button id="play-button" data-state="play"></button>
-    <div id="progress-container">
-      <progress id="video-progress" value="0"></progress>
-      <span id="video-time-display"></span>
+<div id="main-container" data-state="hide">
+  <div id="video-container">
+    <video id="video-player" playsinline muted>
+      Video tag is not supported in this browser.
+    </video>
+    <div id="video-controls" class="centered">
+      <button id="play-button" data-state="play"></button>
+      <div id="progress-container">
+        <progress id="video-progress" value="0"></progress>
+        <span id="video-time-display"></span>
+      </div>
+      <button id="mute-button" data-state="unmute"></button>
     </div>
-    <button id="mute-button" data-state="unmute"></button>
+  </div>
+  <div class="action-panel">
+    <div class="basic-actions">
+      <button id="seek-frame-button">Seek Frame</button>
+    </div>
+    <form id="seek-form">
+      <fieldset>
+        <legend>Seek by amount</legend>
+        <label for="seek-time-input">Amount:</label>
+        <input
+            id="seek-time-input"
+            type="text"
+            pattern="(\d+:)?([0-5]?[0-9]:)?[0-5]?[0-9](\.\d+)?"
+            placeholder="1.5"
+            required>
+        <button>Seek</button>
+      </fieldset>
+    </form>
   </div>
 </div>
 </body>
