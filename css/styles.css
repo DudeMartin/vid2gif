@@ -27,6 +27,16 @@ html {
   margin: 10px;
 }
 
+.gif-container {
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
+.gif-container img {
+  margin: 5px;
+  max-height: 25vh;
+}
+
 #video-select-area {
   align-items: center;
   background: #eee;

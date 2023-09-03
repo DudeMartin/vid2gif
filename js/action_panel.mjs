@@ -1,6 +1,21 @@
-import { preventDefault } from "./event_utilities.mjs";
+import { preventDefault, toggleState } from "./event_utilities.mjs";
+import { startRecording, stopRecording } from "./gif_recorder.mjs";
 
 const videoPlayer = document.getElementById("video-player");
+const recordButton = document.getElementById("record-button");
+let recordContext;
+
+recordButton.onclick = () => toggleState(recordButton, "record", "stop", () => {
+  recordButton.textContent = "Stop Recording";
+  recordContext = startRecording(videoPlayer);
+}, () => {
+  recordButton.textContent = "Start Recording";
+  stopRecording(recordContext).then(gifBlob => {
+    const gifImage = document.createElement("img");
+    gifImage.src = URL.createObjectURL(gifBlob);
+    document.querySelector(".gif-container").append(gifImage);
+  });
+});
 
 document.getElementById("seek-frame-button").onclick = () => videoPlayer.currentTime += 0.05;
 

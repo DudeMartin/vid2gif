@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>vid2gif</title>
+  <script type="text/javascript" src="lib/Animated_GIF.min.js" defer></script>
   <script type="module" src="js/load_video.mjs"></script>
   <script type="module" src="js/video_controls.mjs"></script>
   <script type="module" src="js/action_panel.mjs"></script>
@@ -35,6 +36,7 @@
   </div>
   <div class="action-panel">
     <div class="basic-actions">
+      <button id="record-button" data-state="record">Start Recording</button>
       <button id="seek-frame-button">Seek Frame</button>
     </div>
     <form id="seek-form">
@@ -52,5 +54,6 @@
     </form>
   </div>
 </div>
+<div class="gif-container"></div>
 </body>
 </html>
