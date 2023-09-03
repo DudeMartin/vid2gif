@@ -11,9 +11,17 @@ recordButton.onclick = () => toggleState(recordButton, "record", "stop", () => {
 }, () => {
   recordButton.textContent = "Start Recording";
   stopRecording(recordContext).then(gifBlob => {
+    const gifContainer = document.createElement("div");
     const gifImage = document.createElement("img");
+    const removeButton = document.createElement("button");
     gifImage.src = URL.createObjectURL(gifBlob);
-    document.querySelector(".gif-container").append(gifImage);
+    removeButton.textContent = "X";
+    removeButton.onclick = () => {
+      gifContainer.remove();
+      URL.revokeObjectURL(gifImage.src);
+    };
+    gifContainer.append(gifImage, removeButton);
+    document.querySelector(".gif-container").append(gifContainer);
   });
 });
 

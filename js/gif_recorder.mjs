@@ -47,5 +47,5 @@ function calculateSize(videoPlayer, width, height) {
 }
 
 function isVideoPlaying(videoPlayer) {
-  return videoPlayer.currentTime > 0 && !videoPlayer.paused  && !videoPlayer.ended && videoPlayer.readyState > 2;
+  return videoPlayer.currentTime > 0 && !videoPlayer.paused && !videoPlayer.ended && videoPlayer.readyState > 2;
 }

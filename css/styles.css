@@ -6,6 +6,10 @@ html {
   font-weight: 100;
 }
 
+button {
+  font: inherit;
+}
+
 .centered {
   margin-left: auto;
   margin-right: auto;
@@ -32,9 +36,33 @@ html {
   white-space: nowrap;
 }
 
-.gif-container img {
+.gif-container div {
+  display: inline-block;
   margin: 5px;
+  position: relative;
+}
+
+.gif-container div:hover {
+  border-style: outset;
+}
+
+.gif-container img {
   max-height: 25vh;
+}
+
+.gif-container button {
+  background: transparent;
+  border: 0;
+  color: red;
+  display: none;
+  font-size: 1.5rem;
+  position: absolute;
+  right: 0.25ch;
+  top: 0.125rem;
+}
+
+.gif-container div:hover button {
+  display: block;
 }
 
 #video-select-area {
