@@ -91,7 +91,8 @@ button {
 }
 
 #video-select-area[data-state=shrink] {
-  height: 5vh;
+  height: fit-content;
+  min-height: 5vh;
 }
 
 #video-select-area > span {
