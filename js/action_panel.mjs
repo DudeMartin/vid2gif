@@ -10,15 +10,24 @@ recordButton.onclick = () => toggleState(recordButton, "record", "stop", () => {
   videoPlayer.play();
 }, () => {
   videoPlayer.pause();
-  stopRecording(recordContext).then(gifBlob => {
+  stopRecording(recordContext).then(URL.createObjectURL).then(gifUrl => {
     const gifContainer = document.createElement("div");
     const gifImage = document.createElement("img");
     const removeButton = document.createElement("button");
-    gifImage.src = URL.createObjectURL(gifBlob);
+    gifImage.src = gifUrl;
     removeButton.textContent = "X";
     removeButton.onclick = () => {
       gifContainer.remove();
-      URL.revokeObjectURL(gifImage.src);
+      URL.revokeObjectURL(gifUrl);
+    };
+    gifContainer.onclick = () => {
+      const previewModal = document.querySelector(".gif-modal");
+      const previewImage = document.createElement("img");
+      const closeButton = previewModal.querySelector("button");
+      previewImage.src = gifUrl;
+      closeButton.onclick = () => previewModal.close();
+      previewModal.replaceChildren(previewImage, closeButton);
+      previewModal.showModal();
     };
     gifContainer.append(gifImage, removeButton);
     document.querySelector(".gif-container").append(gifContainer);

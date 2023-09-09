@@ -70,6 +70,22 @@ button {
   display: block;
 }
 
+.gif-modal {
+  border: none;
+  border-radius: 5px;
+  box-shadow: 10px 5px 5px grey;
+}
+
+.gif-modal img {
+  display: block;
+  max-height: 85vh;
+  max-width: 85vw;
+}
+
+.gif-modal button {
+  margin-top: 10px;
+}
+
 #video-select-area {
   align-items: center;
   background: #eee;
@@ -197,11 +213,11 @@ button {
 }
 
 #record-button[data-state=stop]::after {
-  animation: recording 3s infinite;
+  animation: recording-text 3s infinite;
   content: "Recording";
 }
 
-@keyframes recording {
+@keyframes recording-text {
   25% {
     content: "Recording.";
   }
