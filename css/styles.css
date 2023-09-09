@@ -50,12 +50,17 @@ button {
   max-height: 25vh;
 }
 
+.gif-container div:hover img {
+  max-height: 27.5vh;
+}
+
 .gif-container button {
   background: transparent;
   border: 0;
   color: red;
   display: none;
-  font-size: 1.5rem;
+  font-size: 2rem;
+  padding: 0;
   position: absolute;
   right: 0.25ch;
   top: 0.125rem;
