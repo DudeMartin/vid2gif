@@ -42,6 +42,7 @@ function showVideoSelectError(message) {
 }
 
 function openVideo(videoFile) {
+  document.querySelector("#record-button[data-state=stop]")?.click();
   document.getElementById("error-container").setAttribute("hidden", "");
   document.getElementById("main-container").setAttribute("data-state", "show");
   videoSelectArea.setAttribute("data-state", "shrink");
