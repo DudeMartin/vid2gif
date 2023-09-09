@@ -191,6 +191,27 @@ button {
   font-size: 1.1rem;
 }
 
+#record-button[data-state=record]::after {
+  content: "Record";
+}
+
+#record-button[data-state=stop]::after {
+  animation: recording 3s infinite;
+  content: "Recording";
+}
+
+@keyframes recording {
+  25% {
+    content: "Recording.";
+  }
+  50% {
+    content: "Recording..";
+  }
+  75% {
+    content: "Recording...";
+  }
+}
+
 @media only screen and (max-width: 600px) {
   h1 {
     margin-left: 2%;

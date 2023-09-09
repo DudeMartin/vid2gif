@@ -6,11 +6,9 @@ const recordButton = document.getElementById("record-button");
 let recordContext;
 
 recordButton.onclick = () => toggleState(recordButton, "record", "stop", () => {
-  recordButton.textContent = "Stop Recording";
   recordContext = startRecording(videoPlayer);
   videoPlayer.play();
 }, () => {
-  recordButton.textContent = "Start Recording";
   videoPlayer.pause();
   stopRecording(recordContext).then(gifBlob => {
     const gifContainer = document.createElement("div");
