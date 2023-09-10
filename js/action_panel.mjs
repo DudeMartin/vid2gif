@@ -16,7 +16,8 @@ recordButton.onclick = () => toggleState(recordButton, "record", "stop", () => {
     const removeButton = document.createElement("button");
     gifImage.src = gifUrl;
     removeButton.textContent = "X";
-    removeButton.onclick = () => {
+    removeButton.onclick = event => {
+      event.stopImmediatePropagation();
       gifContainer.remove();
       URL.revokeObjectURL(gifUrl);
     };
