@@ -6,7 +6,7 @@ const gifModal = document.querySelector(".gif-modal");
 
 let recordContext;
 
-document.getElementById("record-button").onclick = event => toggleState(event.target, "record", "stop", () => {
+document.getElementById("record-button").addEventListener("click", event => toggleState(event.currentTarget, "record", "stop", () => {
   recordContext = startRecording(videoPlayer);
   videoPlayer.play();
 }, () => {
@@ -18,12 +18,12 @@ document.getElementById("record-button").onclick = event => toggleState(event.ta
     const removeButton = document.createElement("button");
     image.src = gifUrl;
     removeButton.textContent = "X";
-    removeButton.onclick = event => {
-      event.stopImmediatePropagation();
+    removeButton.addEventListener("click", event => {
+      event.stopPropagation();
       container.remove();
       URL.revokeObjectURL(gifUrl);
-    };
-    container.onclick = () => {
+    });
+    container.addEventListener("click", () => {
       const previewImage = document.createElement("img");
       const detailsContainer = document.createElement("div");
       const dimensionsText = document.createElement("span");
@@ -35,18 +35,18 @@ document.getElementById("record-button").onclick = event => toggleState(event.ta
       detailsContainer.append(dimensionsText, sizeText);
       gifModal.querySelector(".preview-container").replaceChildren(previewImage, detailsContainer);
       gifModal.showModal();
-    };
+    });
     container.append(image, removeButton);
     document.querySelector(".gif-container").append(container);
   });
-});
+}));
 
-document.getElementById("seek-frame-button").onclick = () => videoPlayer.currentTime += 0.05;
+document.getElementById("seek-frame-button").addEventListener("click", () => videoPlayer.currentTime += 0.05);
 
-document.getElementById("seek-form").onsubmit = preventDefault(() =>
-  videoPlayer.currentTime += parseTimeInput(document.getElementById("seek-time-input").value));
+document.getElementById("seek-form").addEventListener("submit", preventDefault(() =>
+  videoPlayer.currentTime += parseTimeInput(document.getElementById("seek-time-input").value)));
 
-gifModal.querySelector("button").onclick = () => gifModal.close();
+gifModal.querySelector("button").addEventListener("click", () => gifModal.close());
 
 function formatFileSize(byteCount) {
   if (byteCount >= 1000000) {

@@ -4,20 +4,20 @@ const videoFileInput = document.getElementById("video-file-input");
 const videoSelectArea = document.getElementById("video-select-area");
 const videoPlayer = document.getElementById("video-player");
 
-document.ondragenter = () => videoSelectArea.classList.add("video-select-hover");
+document.addEventListener("dragenter", () => videoSelectArea.classList.add("video-select-hover"));
 
-document.ondragleave = () => videoSelectArea.classList.remove("video-select-hover");
+document.addEventListener("dragleave", () => videoSelectArea.classList.remove("video-select-hover"));
 
-document.ondragover = preventDefault(() => videoSelectArea.classList.add("video-select-hover"));
+document.addEventListener("dragover", preventDefault(() => videoSelectArea.classList.add("video-select-hover")));
 
-document.ondrop = preventDefault(event => {
+document.addEventListener("drop", preventDefault(event => {
   videoSelectArea.classList.remove("video-select-hover");
   handleSelectedVideos(event.dataTransfer.files);
-});
+}));
 
-videoFileInput.onchange = () => handleSelectedVideos(videoFileInput.files);
+videoFileInput.addEventListener("change", () => handleSelectedVideos(videoFileInput.files));
 
-videoSelectArea.onclick = () => videoFileInput.click();
+videoSelectArea.addEventListener("click", () => videoFileInput.click());
 
 function handleSelectedVideos(videoFiles) {
   if (videoFiles.length === 0) {
