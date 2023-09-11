@@ -2,10 +2,11 @@ import { preventDefault, toggleState } from "./event_utilities.mjs";
 import { startRecording, stopRecording } from "./gif_recorder.mjs";
 
 const videoPlayer = document.getElementById("video-player");
-const recordButton = document.getElementById("record-button");
+const gifModal = document.querySelector(".gif-modal");
+
 let recordContext;
 
-recordButton.onclick = () => toggleState(recordButton, "record", "stop", () => {
+document.getElementById("record-button").onclick = event => toggleState(event.target, "record", "stop", () => {
   recordContext = startRecording(videoPlayer);
   videoPlayer.play();
 }, () => {
@@ -22,13 +23,10 @@ recordButton.onclick = () => toggleState(recordButton, "record", "stop", () => {
       URL.revokeObjectURL(gifUrl);
     };
     gifContainer.onclick = () => {
-      const previewModal = document.querySelector(".gif-modal");
       const previewImage = document.createElement("img");
-      const closeButton = previewModal.querySelector("button");
       previewImage.src = gifUrl;
-      closeButton.onclick = () => previewModal.close();
-      previewModal.replaceChildren(previewImage, closeButton);
-      previewModal.showModal();
+      gifModal.querySelector(".preview-container").replaceChildren(previewImage);
+      gifModal.showModal();
     };
     gifContainer.append(gifImage, removeButton);
     document.querySelector(".gif-container").append(gifContainer);
@@ -39,6 +37,8 @@ document.getElementById("seek-frame-button").onclick = () => videoPlayer.current
 
 document.getElementById("seek-form").onsubmit = preventDefault(() =>
   videoPlayer.currentTime += parseTimeInput(document.getElementById("seek-time-input").value));
+
+gifModal.querySelector("button").onclick = () => gifModal.close();
 
 function parseTimeInput(time) {
   const timeParts = time.split(":");
