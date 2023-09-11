@@ -31,7 +31,7 @@ document.getElementById("record-button").onclick = event => toggleState(event.ta
       previewImage.src = gifUrl;
       previewImage.classList.add("centered");
       dimensionsText.textContent = `${previewImage.naturalWidth}px by ${previewImage.naturalHeight}px`;
-      sizeText.textContent = `${gifBlob.size} bytes`;
+      sizeText.textContent = formatFileSize(gifBlob.size);
       detailsContainer.append(dimensionsText, sizeText);
       gifModal.querySelector(".preview-container").replaceChildren(previewImage, detailsContainer);
       gifModal.showModal();
@@ -47,6 +47,16 @@ document.getElementById("seek-form").onsubmit = preventDefault(() =>
   videoPlayer.currentTime += parseTimeInput(document.getElementById("seek-time-input").value));
 
 gifModal.querySelector("button").onclick = () => gifModal.close();
+
+function formatFileSize(byteCount) {
+  if (byteCount >= 1000000) {
+    return (byteCount / 1000000).toFixed(1) + " MB";
+  } else if (byteCount >= 1000) {
+    return (byteCount / 1000).toFixed(1) + " KB";
+  } else {
+    return byteCount + " bytes";
+  }
+}
 
 function parseTimeInput(time) {
   const timeParts = time.split(":");
