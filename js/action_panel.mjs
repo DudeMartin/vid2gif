@@ -11,25 +11,33 @@ document.getElementById("record-button").onclick = event => toggleState(event.ta
   videoPlayer.play();
 }, () => {
   videoPlayer.pause();
-  stopRecording(recordContext).then(URL.createObjectURL).then(gifUrl => {
-    const gifContainer = document.createElement("div");
-    const gifImage = document.createElement("img");
+  stopRecording(recordContext).then(gifBlob => {
+    const gifUrl = URL.createObjectURL(gifBlob);
+    const container = document.createElement("div");
+    const image = document.createElement("img");
     const removeButton = document.createElement("button");
-    gifImage.src = gifUrl;
+    image.src = gifUrl;
     removeButton.textContent = "X";
     removeButton.onclick = event => {
       event.stopImmediatePropagation();
-      gifContainer.remove();
+      container.remove();
       URL.revokeObjectURL(gifUrl);
     };
-    gifContainer.onclick = () => {
+    container.onclick = () => {
       const previewImage = document.createElement("img");
+      const detailsContainer = document.createElement("div");
+      const dimensionsText = document.createElement("span");
+      const sizeText = document.createElement("span");
       previewImage.src = gifUrl;
-      gifModal.querySelector(".preview-container").replaceChildren(previewImage);
+      previewImage.classList.add("centered");
+      dimensionsText.textContent = `${previewImage.naturalWidth}px by ${previewImage.naturalHeight}px`;
+      sizeText.textContent = `${gifBlob.size} bytes`;
+      detailsContainer.append(dimensionsText, sizeText);
+      gifModal.querySelector(".preview-container").replaceChildren(previewImage, detailsContainer);
       gifModal.showModal();
     };
-    gifContainer.append(gifImage, removeButton);
-    document.querySelector(".gif-container").append(gifContainer);
+    container.append(image, removeButton);
+    document.querySelector(".gif-container").append(container);
   });
 });
 

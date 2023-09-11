@@ -78,11 +78,18 @@ button {
 
 .gif-modal img {
   display: block;
-  max-height: 85vh;
-  max-width: 85vw;
+  max-height: 85dvh;
+  max-width: 85dvw;
 }
 
 .gif-modal button {
+  margin-top: 10px;
+}
+
+.preview-container div {
+  display: flex;
+  gap: 1ch;
+  justify-content: space-between;
   margin-top: 10px;
 }
 
