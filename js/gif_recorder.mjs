@@ -35,13 +35,12 @@ function calculateSize(videoPlayer, width, height) {
   } else if (height) {
     return [videoPlayer.videoWidth * height / videoPlayer.videoHeight, height];
   } else {
-    let factor = 2;
-    let scaledWidth, scaledHeight;
-    do {
-      scaledWidth = videoPlayer.videoWidth / factor;
-      scaledHeight = videoPlayer.videoHeight / factor;
-      factor += 0.5;
-    } while (Math.max(scaledWidth, scaledHeight) > 1000);
+    let scaledWidth = videoPlayer.videoWidth;
+    let scaledHeight = videoPlayer.videoHeight;
+    for (let factor = 1; Math.max(scaledWidth, scaledHeight) > 1000; factor += 0.5) {
+      scaledWidth = Math.round(videoPlayer.videoWidth / factor);
+      scaledHeight = Math.round(videoPlayer.videoHeight / factor);
+    }
     return [scaledWidth, scaledHeight];
   }
 }
