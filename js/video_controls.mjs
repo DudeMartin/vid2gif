@@ -1,4 +1,5 @@
 const videoPlayer = document.getElementById("video-player");
+const progressContainer = document.getElementById("progress-container");
 const progressBar = document.getElementById("video-progress");
 const timeDisplay = document.getElementById("video-time-display");
 const playButton = document.getElementById("play-button");
@@ -34,11 +35,10 @@ videoPlayer.addEventListener("volumechange", () => {
   }
 });
 
-progressBar.addEventListener("mousemove", event => {
-  const progressContainer = document.getElementById("progress-container");
-  const progressBarBounds = progressBar.getBoundingClientRect();
-  const relativeX = event.clientX - progressBarBounds.left;
-  const fraction = relativeX / progressBarBounds.width;
+progressContainer.addEventListener("mousemove", event => {
+  const containerBounds = progressContainer.getBoundingClientRect();
+  const relativeX = event.clientX - containerBounds.left;
+  const fraction = relativeX / containerBounds.width;
   progressContainer.setAttribute("data-tooltip", formatTime(fraction * videoPlayer.duration));
   progressContainer.style.setProperty("--tooltip-x", `${relativeX.toString()}px`);
   if (isLeftMouseButtonPressed(event)) {
@@ -46,18 +46,18 @@ progressBar.addEventListener("mousemove", event => {
   }
 });
 
-progressBar.addEventListener("mousedown", event => {
+progressContainer.addEventListener("mousedown", event => {
   if (!isLeftMouseButtonPressed(event)) {
     return;
   }
-  const progressBarBounds = progressBar.getBoundingClientRect();
-  const fraction = (event.clientX - progressBarBounds.left) / progressBarBounds.width;
+  const containerBounds = progressContainer.getBoundingClientRect();
+  const fraction = (event.clientX - containerBounds.left) / containerBounds.width;
   videoPlayer.currentTime = fraction * videoPlayer.duration;
 });
 
-progressBar.addEventListener("touchstart", event => {
-  const progressBarBounds = progressBar.getBoundingClientRect();
-  const fraction = (event.targetTouches[0].clientX - progressBarBounds.left) / progressBarBounds.width;
+progressContainer.addEventListener("touchstart", event => {
+  const containerBounds = progressContainer.getBoundingClientRect();
+  const fraction = (event.targetTouches[0].clientX - containerBounds.left) / containerBounds.width;
   videoPlayer.currentTime = fraction * videoPlayer.duration;
 });
 

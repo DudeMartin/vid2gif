@@ -206,11 +206,6 @@ button {
   content: "";
 }
 
-#video-progress {
-  cursor: pointer;
-  width: 100%;
-}
-
 #video-time-display {
   font-size: 1.1rem;
 }
