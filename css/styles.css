@@ -19,8 +19,17 @@ button {
   flex-grow: 1;
 }
 
-.action-panel label {
-  margin-right: 5px;
+.action-panel form {
+  margin-bottom: 0.5rem;
+}
+
+.action-panel form label {
+  font-weight: bold;
+  margin-right: 0.5ch;
+}
+
+.action-panel form input {
+  margin-right: 0.5ch;
 }
 
 .action-panel input[type=text] {
@@ -204,6 +213,10 @@ button {
   border: var(--tooltip-arrow-size) solid transparent;
   border-top-color: var(--tooltip-color);
   content: "";
+}
+
+#video-progress {
+  width: 100%;
 }
 
 #video-time-display {

@@ -43,8 +43,11 @@ document.getElementById("record-button").addEventListener("click", event => togg
 
 document.getElementById("seek-frame-button").addEventListener("click", () => videoPlayer.currentTime += 0.05);
 
-document.getElementById("seek-form").addEventListener("submit", preventDefault(() =>
-  videoPlayer.currentTime += parseTimeInput(document.getElementById("seek-time-input").value)));
+document.getElementById("seek-time-form").addEventListener("submit", preventDefault(() =>
+  videoPlayer.currentTime = parseTimeInput(document.getElementById("seek-time-input").value)));
+
+document.getElementById("seek-seconds-form").addEventListener("submit", preventDefault(() =>
+  videoPlayer.currentTime += parseTimeInput(document.getElementById("seek-seconds-input").value)));
 
 gifModal.querySelector("button").addEventListener("click", () => gifModal.close());
 

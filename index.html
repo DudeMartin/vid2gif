@@ -37,22 +37,31 @@
   <div class="action-panel">
     <div class="basic-actions">
       <button id="record-button" data-state="record"></button>
-      <button id="seek-frame-button">Seek Frame</button>
     </div>
-    <form id="seek-form">
-      <fieldset>
-        <legend>Seek by amount</legend>
-        <label for="seek-time-input">Amount:</label>
+    <fieldset>
+      <legend>Navigation</legend>
+      <form id="seek-time-form">
+        <label for="seek-time-input">Go to time:</label>
         <input
             id="seek-time-input"
             type="text"
             pattern="(\d+:)?([0-5]?[0-9]:)?[0-5]?[0-9](\.\d+)?"
-            value="1.5"
+            placeholder="1:00"
+            required>
+        <button>Go</button>
+      </form>
+      <form id="seek-seconds-form">
+        <label for="seek-seconds-input">Skip seconds:</label>
+        <input
+            id="seek-seconds-input"
+            type="text"
+            pattern="(\d+:)?([0-5]?[0-9]:)?[0-5]?[0-9](\.\d+)?"
             placeholder="1.5"
             required>
-        <button>Seek</button>
-      </fieldset>
-    </form>
+        <button>Skip</button>
+      </form>
+      <button id="seek-frame-button">Skip frame</button>
+    </fieldset>
   </div>
 </div>
 <div class="gif-container"></div>
