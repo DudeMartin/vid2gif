@@ -40,7 +40,7 @@ progressContainer.addEventListener("mousemove", event => {
   const relativeX = event.clientX - containerBounds.left;
   const fraction = relativeX / containerBounds.width;
   progressContainer.setAttribute("data-tooltip", formatTime(fraction * videoPlayer.duration));
-  progressContainer.style.setProperty("--tooltip-x", `${relativeX.toString()}px`);
+  progressContainer.style.setProperty("--tooltip-x", relativeX + "px");
   if (isLeftMouseButtonPressed(event)) {
     videoPlayer.currentTime = fraction * videoPlayer.duration;
   }
@@ -77,7 +77,7 @@ function formatTime(seconds) {
     result += `${Math.trunc(seconds / 3600)}:`;
     result += `${Math.trunc(seconds % 3600 / 60).toString().padStart(2, "0")}:`;
   } else {
-    result += `${Math.trunc(seconds % 3600 / 60).toString()}:`;
+    result += Math.trunc(seconds % 3600 / 60) + ":";
   }
   result += Math.trunc(seconds % 60).toString().padStart(2, "0");
   return result;

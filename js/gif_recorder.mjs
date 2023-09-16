@@ -1,15 +1,19 @@
 export function startRecording(videoPlayer, options = {}) {
   const [width, height] = calculateSize(videoPlayer, options.width, options.height);
-  const frameDelay = 1000 / (options.frameRate || 5);
+  const frameRate = options.frameRate || 5;
+  const frameDelay = 1000 / frameRate;
   const animatedGif = new Animated_GIF({
     width: width,
     height: height,
     delay: frameDelay
   });
+  initializeDetails(width, height, frameRate);
   const intervalId = setInterval(() => {
-    if (isVideoPlaying(videoPlayer)) {
-      animatedGif.addFrame(videoPlayer);
+    if (!isVideoPlaying(videoPlayer)) {
+      return;
     }
+    animatedGif.addFrame(videoPlayer);
+    countFrame();
   }, frameDelay);
   return {
     videoPlayer: videoPlayer,
@@ -45,6 +49,17 @@ function calculateSize(videoPlayer, width, height) {
   }
 }
 
+function initializeDetails(width, height, frameRate) {
+  document.getElementById("dimensions-output").textContent = `${width}px by ${height}px`;
+  document.getElementById("frame-rate-output").textContent = `${frameRate}`;
+  document.getElementById("frames-recorded-output").textContent = "0";
+}
+
 function isVideoPlaying(videoPlayer) {
   return videoPlayer.currentTime > 0 && !videoPlayer.paused && !videoPlayer.ended && videoPlayer.readyState > 2;
+}
+
+function countFrame() {
+  const frameCounter = document.getElementById("frames-recorded-output");
+  frameCounter.textContent = `${Number(frameCounter.textContent) + 1}`;
 }

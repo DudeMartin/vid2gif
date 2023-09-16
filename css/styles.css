@@ -10,8 +10,17 @@ button {
   font: inherit;
 }
 
+details[open] summary {
+  margin-bottom: 0.125rem;
+}
+
+label {
+  font-weight: bold;
+  margin-right: 0.5ch;
+}
+
 legend {
-  background-color: black;
+  background: black;
   color: white;
   padding: 0.2rem 0.5ch;
 }
@@ -22,16 +31,15 @@ legend {
 }
 
 .action-panel {
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
+  gap: 0.35rem;
+  padding: 0.35rem;
 }
 
 .action-panel form {
   margin-bottom: 0.35rem;
-}
-
-.action-panel form label {
-  font-weight: bold;
-  margin-right: 0.5ch;
 }
 
 .action-panel form input {
@@ -40,10 +48,6 @@ legend {
 
 .action-panel input[type=text] {
   width: 10ch;
-}
-
-.basic-actions {
-  margin: 10px;
 }
 
 .gif-container {

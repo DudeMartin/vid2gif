@@ -35,9 +35,24 @@
     </div>
   </div>
   <div class="action-panel">
-    <div class="basic-actions">
+    <section>
       <button id="record-button" data-state="record"></button>
-    </div>
+    </section>
+    <details>
+      <summary>Recording details</summary>
+      <div>
+        <label for="dimensions-output">Dimensions:</label>
+        <output id="dimensions-output" for="video-player record-button"></output>
+      </div>
+      <div>
+        <label for="frame-rate-output">Frame rate:</label>
+        <output id="frame-rate-output" for="video-player record-button"></output>
+      </div>
+      <div>
+        <label for="frames-recorded-output">Frames:</label>
+        <output id="frames-recorded-output" for="video-player record-button"></output>
+      </div>
+    </details>
     <fieldset>
       <legend>Navigation</legend>
       <form id="seek-time-form">
