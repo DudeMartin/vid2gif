@@ -1,26 +1,10 @@
 export function startRecording(videoPlayer, options = {}) {
-  const [width, height] = calculateSize(videoPlayer, options.width, options.height);
-  const frameRate = options.frameRate || 5;
-  const frameDelay = 1000 / frameRate;
-  const animatedGif = new Animated_GIF({
-    width: width,
-    height: height,
-    delay: frameDelay
-  });
-  initializeDetails(width, height, frameRate);
-  const intervalId = setInterval(() => {
-    if (!isVideoPlaying(videoPlayer)) {
-      return;
-    }
-    animatedGif.addFrame(videoPlayer);
-    countFrame();
-  }, frameDelay);
-  return {
-    videoPlayer: videoPlayer,
-    frameDelay: frameDelay,
-    recorder: animatedGif,
-    intervalId: intervalId
-  };
+  options.frameRate ??= 5;
+  if (options.crop) {
+    return startCroppedRecording(videoPlayer, options);
+  } else {
+    return startFullRecording(videoPlayer, options);
+  }
 }
 
 export function stopRecording(context) {
@@ -29,6 +13,55 @@ export function stopRecording(context) {
     context.recorder.destroy();
     resolve(blob);
   }));
+}
+
+function startCroppedRecording(videoPlayer, options) {
+  const cropX = Math.floor(options.crop[0] * videoPlayer.videoWidth);
+  const cropY = Math.floor(options.crop[1] * videoPlayer.videoHeight);
+  const width = Math.floor(options.crop[2] * videoPlayer.videoWidth);
+  const height = Math.floor(options.crop[3] * videoPlayer.videoHeight);
+  const offscreenContext = new OffscreenCanvas(videoPlayer.videoWidth, videoPlayer.videoHeight).getContext("2d");
+  const frameDelay = 1000 / options.frameRate;
+  const animatedGif = new Animated_GIF({
+    width: width,
+    height: height,
+    delay: frameDelay
+  });
+  initializeDetails(width, height, options.frameRate);
+  const intervalId = setInterval(() => {
+    if (!isVideoPlaying(videoPlayer)) {
+      return;
+    }
+    offscreenContext.drawImage(videoPlayer, 0, 0);
+    animatedGif.addFrameImageData(offscreenContext.getImageData(cropX, cropY, width, height));
+    countFrame();
+  }, frameDelay);
+  return {
+    recorder: animatedGif,
+    intervalId: intervalId
+  };
+}
+
+function startFullRecording(videoPlayer, options) {
+  const [width, height] = calculateSize(videoPlayer, options.width, options.height);
+  const frameDelay = 1000 / options.frameRate;
+  const animatedGif = new Animated_GIF({
+    width: width,
+    height: height,
+    delay: frameDelay
+  });
+  initializeDetails(width, height, options.frameRate);
+  const intervalId = setInterval(() => {
+    if (!isVideoPlaying(videoPlayer)) {
+      return;
+    }
+    animatedGif.addFrame(videoPlayer);
+    countFrame();
+  }, frameDelay);
+  return {
+    recorder: animatedGif,
+    intervalId: intervalId
+  };
 }
 
 function calculateSize(videoPlayer, width, height) {

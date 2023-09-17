@@ -6,6 +6,13 @@ html {
   font-weight: 200;
 }
 
+canvas {
+  height: 100%;
+  position: absolute;
+  touch-action: none;
+  width: 100%;
+}
+
 button {
   font: inherit;
 }
@@ -164,22 +171,21 @@ legend {
 }
 
 #video-player {
-  max-height: 70vh;
-  width: 95vmin;
+  max-height: 125vh;
+  max-width: 95vw;
 }
 
 #video-controls {
-  --video-controls-width: 75%;
+  --video-controls-width: 90%;
   align-items: center;
   background: #777777a0;
   border: 1px solid;
   border-radius: 5px;
   display: flex;
-  gap: 10px;
   justify-content: center;
   left: calc((100% - var(--video-controls-width)) / 2);
   position: absolute;
-  transform: translateY(calc(-100% - 1rem));
+  transform: translateY(calc(-100% - 0.75rem));
   width: var(--video-controls-width);
 }
 
@@ -242,6 +248,14 @@ legend {
   content: "Recording";
 }
 
+#crop-button[data-state=crop]::after {
+  content: "Crop";
+}
+
+#crop-button[data-state=stop]::after {
+  content: "Setting...";
+}
+
 @keyframes recording-text {
   25% {
     content: "Recording.";
@@ -273,10 +287,10 @@ legend {
     left: 0;
     line-height: normal;
     transform: translateY(-100%);
-    width: 100vw;
+    width: 100%;
   }
 
   #video-player {
-    width: 100vw;
+    max-width: 100vw;
   }
 }

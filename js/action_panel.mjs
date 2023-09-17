@@ -1,13 +1,17 @@
 import { preventDefault, toggleState } from "./event_utilities.mjs";
 import { startRecording, stopRecording } from "./gif_recorder.mjs";
+import { clearCropping, startCropping, stopCropping } from "./crop_select.mjs";
 
 const videoPlayer = document.getElementById("video-player");
+const cropButton = document.getElementById("crop-button");
+const clearCropButton = document.getElementById("clear-crop-button");
 const gifModal = document.querySelector(".gif-modal");
 
 let recordContext;
+let cropBounds;
 
 document.getElementById("record-button").addEventListener("click", event => toggleState(event.currentTarget, "record", "stop", () => {
-  recordContext = startRecording(videoPlayer);
+  recordContext = startRecording(videoPlayer, { crop: cropBounds });
   videoPlayer.play();
 }, () => {
   videoPlayer.pause();
@@ -40,6 +44,19 @@ document.getElementById("record-button").addEventListener("click", event => togg
     document.querySelector(".gif-container").append(container);
   });
 }));
+
+cropButton.addEventListener("click", () => toggleState(cropButton, "crop", "stop", startCropping, stopCropping));
+
+cropButton.addEventListener("crop", event => {
+  clearCropButton.removeAttribute("disabled");
+  cropBounds = event.detail;
+});
+
+clearCropButton.addEventListener("click", () => {
+  clearCropping();
+  clearCropButton.setAttribute("disabled", "");
+  cropBounds = undefined;
+});
 
 document.getElementById("seek-frame-button").addEventListener("click", () => videoPlayer.currentTime += 0.05);
 

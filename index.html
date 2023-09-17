@@ -21,7 +21,8 @@
   </div>
 </div>
 <div id="main-container" data-state="hide">
-  <div id="video-container">
+  <div id="video-container" class="centered">
+    <canvas hidden></canvas>
     <video id="video-player" playsinline muted>
       Video tag is not supported in this browser.
     </video>
@@ -53,6 +54,11 @@
         <output id="frames-recorded-output" for="video-player record-button"></output>
       </div>
     </details>
+    <fieldset>
+      <legend>Controls</legend>
+      <button id="crop-button" data-state="crop"></button>
+      <button id="clear-crop-button" disabled>Clear crop</button>
+    </fieldset>
     <fieldset>
       <legend>Navigation</legend>
       <form id="seek-time-form">
