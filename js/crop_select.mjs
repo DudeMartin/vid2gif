@@ -10,6 +10,7 @@ export function startCropping() {
   canvas.addEventListener("mousedown", cropPress);
   canvas.addEventListener("mousemove", cropMove);
   canvas.addEventListener("mouseup", cropRelease);
+  canvas.addEventListener("mouseleave", cropRelease);
   canvas.addEventListener("touchstart", cropTouchPress);
   canvas.addEventListener("touchmove", cropTouchMove);
   canvas.addEventListener("touchend", cropTouchRelease);
@@ -19,6 +20,7 @@ export function stopCropping() {
   canvas.removeEventListener("mousedown", cropPress);
   canvas.removeEventListener("mousemove", cropMove);
   canvas.removeEventListener("mouseup", cropRelease);
+  canvas.removeEventListener("mouseleave", cropRelease);
   canvas.removeEventListener("touchstart", cropTouchPress);
   canvas.removeEventListener("touchmove", cropTouchMove);
   canvas.removeEventListener("touchend", cropTouchRelease);
