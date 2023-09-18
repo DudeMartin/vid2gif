@@ -11,6 +11,7 @@ canvas {
   position: absolute;
   touch-action: none;
   width: 100%;
+  z-index: 1;
 }
 
 button {
@@ -58,7 +59,7 @@ legend {
 }
 
 .gif-container {
-  overflow-x: scroll;
+  overflow-x: auto;
   white-space: nowrap;
 }
 
@@ -100,12 +101,15 @@ legend {
   border: none;
   border-radius: 5px;
   box-shadow: 10px 5px 5px grey;
+  max-height: 90dvh;
+  max-width: 85dvw;
 }
 
 .gif-modal img {
   display: block;
-  max-height: 85dvh;
-  max-width: 85dvw;
+  max-height: 75dvh;
+  max-width: 100%;
+  object-fit: contain;
 }
 
 .gif-modal button {
@@ -159,6 +163,7 @@ legend {
 #main-container {
   display: flex;
   flex-wrap: wrap;
+  gap: 1ch;
 }
 
 #main-container[data-state=hide] {
@@ -171,7 +176,7 @@ legend {
 }
 
 #video-player {
-  max-height: 125vh;
+  max-height: 75vh;
   max-width: 95vw;
 }
 
@@ -286,6 +291,8 @@ legend {
     border-radius: 0;
     left: 0;
     line-height: normal;
+    padding-bottom: 0.25rem;
+    padding-top: 0.25rem;
     transform: translateY(-100%);
     width: 100%;
   }
