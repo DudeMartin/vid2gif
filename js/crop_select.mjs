@@ -13,6 +13,7 @@ export function startCropping() {
 }
 
 export function stopCropping() {
+  canvas.removeAttribute("data-state");
   canvas.removeEventListener("mousedown", cropPress);
   canvas.removeEventListener("mousemove", cropMove);
   canvas.removeEventListener("mouseup", cropRelease);
@@ -38,6 +39,7 @@ function cropPress(event) {
     drawingContext.fillStyle = "#dddddd60";
     drawingContext.fillRect(0, 0, canvasBounds.width, canvasBounds.height);
   }, canvasBounds);
+  canvas.setAttribute("data-state", "cropping");
   canvas.addEventListener("mousemove", cropMove);
   canvas.addEventListener("mouseup", cropRelease);
   canvas.addEventListener("mouseleave", cropRelease);
