@@ -1,4 +1,5 @@
 import { preventDefault } from "./event_utilities.mjs";
+import { clearCropping } from "./crop_select.mjs";
 
 const videoFileInput = document.getElementById("video-file-input");
 const videoSelectArea = document.getElementById("video-select-area");
@@ -43,6 +44,7 @@ function showVideoSelectError(message) {
 
 function openVideo(videoFile) {
   document.querySelector("#record-button[data-state=stop]")?.click();
+  clearCropping();
   document.getElementById("error-container").setAttribute("hidden", "");
   document.getElementById("main-container").setAttribute("data-state", "show");
   videoSelectArea.setAttribute("data-shrink", "");

@@ -47,14 +47,10 @@ document.getElementById("record-button").addEventListener("click", event => togg
 
 cropButton.addEventListener("click", () => toggleState(cropButton, "crop", "stop", startCropping, stopCropping));
 
-cropButton.addEventListener("crop", event => {
-  clearCropButton.removeAttribute("disabled");
-  cropBounds = event.detail;
-});
+cropButton.addEventListener("crop", event => cropBounds = event.detail);
 
 clearCropButton.addEventListener("click", () => {
   clearCropping();
-  clearCropButton.setAttribute("disabled", "");
   cropBounds = undefined;
 });
 

@@ -1,6 +1,7 @@
 const canvas = document.querySelector("canvas");
 const drawingContext = canvas.getContext("2d");
 const cropButton = document.getElementById("crop-button");
+const clearCropButton = document.getElementById("clear-crop-button");
 
 let normalizedStartX;
 let normalizedStartY;
@@ -8,12 +9,7 @@ let normalizedStartY;
 export function startCropping() {
   canvas.removeAttribute("hidden");
   canvas.addEventListener("mousedown", cropPress);
-  canvas.addEventListener("mousemove", cropMove);
-  canvas.addEventListener("mouseup", cropRelease);
-  canvas.addEventListener("mouseleave", cropRelease);
   canvas.addEventListener("touchstart", cropTouchPress);
-  canvas.addEventListener("touchmove", cropTouchMove);
-  canvas.addEventListener("touchend", cropTouchRelease);
 }
 
 export function stopCropping() {
@@ -24,11 +20,14 @@ export function stopCropping() {
   canvas.removeEventListener("touchstart", cropTouchPress);
   canvas.removeEventListener("touchmove", cropTouchMove);
   canvas.removeEventListener("touchend", cropTouchRelease);
+  cropButton.setAttribute("data-state", "crop");
 }
 
 export function clearCropping() {
+  stopCropping();
+  canvasDraw(canvasBounds => drawingContext.clearRect(0, 0, canvasBounds.width, canvasBounds.height));
   canvas.setAttribute("hidden", "");
-  canvasDraw(canvasBounds => drawingContext.fillRect(0, 0, canvasBounds.width, canvasBounds.height));
+  clearCropButton.setAttribute("disabled", "");
 }
 
 function cropPress(event) {
@@ -39,6 +38,11 @@ function cropPress(event) {
     drawingContext.fillStyle = "#dddddd60";
     drawingContext.fillRect(0, 0, canvasBounds.width, canvasBounds.height);
   }, canvasBounds);
+  canvas.addEventListener("mousemove", cropMove);
+  canvas.addEventListener("mouseup", cropRelease);
+  canvas.addEventListener("mouseleave", cropRelease);
+  canvas.addEventListener("touchmove", cropTouchMove);
+  canvas.addEventListener("touchend", cropTouchRelease);
 }
 
 function cropTouchPress(touchEvent) {
@@ -46,9 +50,6 @@ function cropTouchPress(touchEvent) {
 }
 
 function cropMove(event) {
-  if (!normalizedStartX || !normalizedStartY) {
-    return;
-  }
   canvasDraw(canvasBounds => {
     const startX = normalizedStartX * canvasBounds.width;
     const startY = normalizedStartY * canvasBounds.height;
@@ -91,9 +92,7 @@ function cropRelease(event) {
     drawingContext.strokeRect(startX, startY, cropWidth, cropHeight);
   }, canvasBounds);
   cropButton.dispatchEvent(new CustomEvent("crop", { detail: cropBounds }));
-  cropButton.setAttribute("data-state", "crop");
-  normalizedStartX = undefined;
-  normalizedStartY = undefined;
+  clearCropButton.removeAttribute("disabled");
 }
 
 function cropTouchRelease(touchEvent) {
