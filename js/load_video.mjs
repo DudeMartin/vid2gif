@@ -4,14 +4,14 @@ const videoFileInput = document.getElementById("video-file-input");
 const videoSelectArea = document.getElementById("video-select-area");
 const videoPlayer = document.getElementById("video-player");
 
-document.addEventListener("dragenter", () => videoSelectArea.classList.add("video-select-hover"));
+document.addEventListener("dragenter", () => videoSelectArea.setAttribute("data-hover", ""));
 
-document.addEventListener("dragleave", () => videoSelectArea.classList.remove("video-select-hover"));
+document.addEventListener("dragleave", () => videoSelectArea.removeAttribute("data-hover"));
 
-document.addEventListener("dragover", preventDefault(() => videoSelectArea.classList.add("video-select-hover")));
+document.addEventListener("dragover", preventDefault(() => videoSelectArea.setAttribute("data-hover", "")));
 
 document.addEventListener("drop", preventDefault(event => {
-  videoSelectArea.classList.remove("video-select-hover");
+  videoSelectArea.removeAttribute("data-hover");
   handleSelectedVideos(event.dataTransfer.files);
 }));
 
@@ -38,13 +38,13 @@ function showVideoSelectError(message) {
   document.getElementById("error-message").textContent = message;
   document.getElementById("error-container").removeAttribute("hidden");
   document.getElementById("main-container").setAttribute("data-state", "hide");
-  videoSelectArea.removeAttribute("data-state");
+  videoSelectArea.removeAttribute("data-shrink");
 }
 
 function openVideo(videoFile) {
   document.querySelector("#record-button[data-state=stop]")?.click();
   document.getElementById("error-container").setAttribute("hidden", "");
   document.getElementById("main-container").setAttribute("data-state", "show");
-  videoSelectArea.setAttribute("data-state", "shrink");
+  videoSelectArea.setAttribute("data-shrink", "");
   videoPlayer.src = URL.createObjectURL(videoFile);
 }

@@ -139,11 +139,11 @@ legend {
 }
 
 #video-select-area:hover,
-#video-select-area.video-select-hover {
+#video-select-area[data-hover] {
   background: #ddd;
 }
 
-#video-select-area[data-state=shrink] {
+#video-select-area[data-shrink] {
   height: fit-content;
   min-height: 5vh;
 }
