@@ -5,17 +5,19 @@ import { clearCropping, startCropping, stopCropping } from "./crop_select.mjs";
 const videoPlayer = document.getElementById("video-player");
 const cropButton = document.getElementById("crop-button");
 const clearCropButton = document.getElementById("clear-crop-button");
+const frameRateInput = document.getElementById("frame-rate-input");
 const gifModal = document.querySelector(".gif-modal");
 
 let recordContext;
 let cropBounds;
 
 document.getElementById("record-button").addEventListener("click", event => toggleState(event.currentTarget, "record", "stop", () => {
-  recordContext = startRecording(videoPlayer, { crop: cropBounds });
+  recordContext = startRecording(videoPlayer, { frameRate: frameRateInput.value, crop: cropBounds });
   videoPlayer.play();
 }, () => {
   videoPlayer.pause();
-  stopRecording(recordContext).then(gifBlob => {
+  stopRecording(recordContext).then(gifResult => {
+    const gifBlob = gifResult.blob;
     const gifUrl = URL.createObjectURL(gifBlob);
     const container = document.createElement("div");
     const image = document.createElement("img");
@@ -34,7 +36,7 @@ document.getElementById("record-button").addEventListener("click", event => togg
       const sizeText = document.createElement("span");
       previewImage.src = gifUrl;
       previewImage.classList.add("centered");
-      dimensionsText.textContent = `${previewImage.naturalWidth}px by ${previewImage.naturalHeight}px`;
+      dimensionsText.textContent = `${previewImage.naturalWidth}px by ${previewImage.naturalHeight}px at ${gifResult.options.frameRate} FPS`;
       sizeText.textContent = formatFileSize(gifBlob.size);
       detailsContainer.append(dimensionsText, sizeText);
       gifModal.querySelector(".preview-container").replaceChildren(previewImage, detailsContainer);

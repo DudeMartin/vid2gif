@@ -1,5 +1,7 @@
 export function startRecording(videoPlayer, options = {}) {
-  options.frameRate ??= 5;
+  if (!options.frameRate) {
+    options.frameRate = 5;
+  }
   if (options.crop) {
     return startCroppedRecording(videoPlayer, options);
   } else {
@@ -11,7 +13,10 @@ export function stopRecording(context) {
   clearInterval(context.intervalId);
   return new Promise(resolve => context.recorder.getBlobGIF(blob => {
     context.recorder.destroy();
-    resolve(blob);
+    resolve({
+      options: context.options,
+      blob: blob
+    });
   }));
 }
 
@@ -37,6 +42,7 @@ function startCroppedRecording(videoPlayer, options) {
     countFrame();
   }, frameDelay);
   return {
+    options: options,
     recorder: animatedGif,
     intervalId: intervalId
   };
@@ -59,6 +65,7 @@ function startFullRecording(videoPlayer, options) {
     countFrame();
   }, frameDelay);
   return {
+    options: options,
     recorder: animatedGif,
     intervalId: intervalId
   };

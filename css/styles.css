@@ -27,7 +27,6 @@ details[open] summary {
 
 label {
   font-weight: bold;
-  margin-right: 0.5ch;
 }
 
 legend {
@@ -49,12 +48,13 @@ legend {
   padding: 0.35rem;
 }
 
-.action-panel form {
-  margin-bottom: 0.35rem;
+.action-panel * {
+  margin-bottom: 0.2rem;
+  margin-right: 0.5ch;
 }
 
-.action-panel form input {
-  margin-right: 0.5ch;
+.action-panel input[type=number] {
+  width: 6ch;
 }
 
 .action-panel input[type=text] {
